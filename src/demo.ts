@@ -1,7 +1,7 @@
 import { Message, Room, WechatyBuilder } from 'wechaty'
 import q from 'qrcode-terminal'
 import { PuppetWechat4u } from 'wechaty-puppet-wechat4u'
-import { ENV_LOCAL_PATH, PUPPET_USE_PAD, PUPPET_USE_WECHAT4U } from './settings'
+import { ENV_LOCAL_PATH, PUPPET_USE_PADLOCAL, PUPPET_USE_WECHAT4U } from './settings'
 import { PuppetPadlocal } from 'wechaty-puppet-padlocal'
 
 import * as dotenv from 'dotenv'
@@ -34,7 +34,7 @@ let puppet: PuppetWechat4u | PuppetPadlocal | undefined = undefined
 
 if (PUPPET_USE_WECHAT4U) {
 	puppet = new PuppetWechat4u()
-} else if (PUPPET_USE_PAD) {
+} else if (PUPPET_USE_PADLOCAL) {
 	puppet = new PuppetPadlocal({
 		token: process.env.WECHATY_PUPPET_PADLOCAL_TOKEN,
 	})

@@ -26,7 +26,9 @@ const handleMessage = async (message: Message) => {
 		
 	} else {
 		// 处理私人消息
-		await message.say('收到！')
+		if (/^\s*#/.test(text)) { // tag存档消息（未来的笔记系统）
+			await message.say('收到！')
+		}
 	}
 }
 

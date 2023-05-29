@@ -16,11 +16,14 @@ const handleMessage = async (message: Message) => {
 	
 	const text = message.text().toLowerCase() // 纯小写文本，方便后续的匹配
 	
+	// todo: 调研是否web端只有120秒存活期
+	// todo: 调研pad端只有私人回复
 	if (/ding/.test(text)) {
 		await message.say('dong!') // 1. 如果是群消息，则回复群； 2. 如果是个人消息，则回复该人
 	}
 	
 	const room: undefined | Room = message.room() // 1. 如果是群消息，返回该群 2. 否则返回空
+	
 	if (room) {
 		// 处理群消息
 		

@@ -34,21 +34,17 @@ const handleMessage = async (message: Message) => {
 
 let puppet: PuppetWechat4u | PuppetPadlocal | undefined = undefined
 
-if (PUPPET_USE_WECHAT4U) {
+if (PUPPET_USE_WECHAT4U) { // 使用 wechat4u（pc）
 	puppet = new PuppetWechat4u()
-} else if (PUPPET_USE_PADLOCAL) {
+} else if (PUPPET_USE_PADLOCAL) { // 使用 padlocal（pad）
 	puppet = new PuppetPadlocal({
 		token: process.env.WECHATY_PUPPET_PADLOCAL_TOKEN,
 	})
-} else {
+} else { // 使用默认的 web
 }
 
 const initBot = async () => {
-	const wechaty = WechatyBuilder.build({
-		puppet: puppet,
-		// new PuppetWechat4u(), // 这里可以换puppet
-		
-	}) // get a Wechaty instance
+	const wechaty = WechatyBuilder.build({ puppet })
 	
 	wechaty
 		.on('scan', (qrcode, status) => {

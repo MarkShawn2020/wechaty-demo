@@ -1,6 +1,15 @@
 import { Message, Room, WechatyBuilder } from 'wechaty'
 import q from 'qrcode-terminal'
 import { PuppetWechat4u } from 'wechaty-puppet-wechat4u'
+import { ENV_LOCAL_PATH, PUPPET_USE_PAD, PUPPET_USE_WECHAT4U } from './settings'
+import { PuppetPadlocal } from 'wechaty-puppet-padlocal'
+
+import * as dotenv from 'dotenv'
+
+
+dotenv.config({
+	path: ENV_LOCAL_PATH, // 读取进入 process.env
+})
 
 const handleMessage = async (message: Message) => {
 	console.log(`Message: ${message}`)
@@ -21,10 +30,22 @@ const handleMessage = async (message: Message) => {
 	}
 }
 
+let puppet: PuppetWechat4u | PuppetPadlocal | undefined = undefined
+
+if (PUPPET_USE_WECHAT4U) {
+	puppet = new PuppetWechat4u()
+} else if (PUPPET_USE_PAD) {
+	puppet = new PuppetPadlocal({
+		token: process.env.WECHATY_PUPPET_PADLOCAL_TOKEN,
+	})
+} else {
+}
 
 const initBot = async () => {
 	const wechaty = WechatyBuilder.build({
-		puppet: new PuppetWechat4u(),
+		puppet: puppet,
+		// new PuppetWechat4u(), // 这里可以换puppet
+		
 	}) // get a Wechaty instance
 	
 	wechaty

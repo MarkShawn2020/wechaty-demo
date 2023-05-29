@@ -1,6 +1,7 @@
 ## todo
 
 -
+
 bugfix: `12:08:07 ERR [Request] [tid:d7dd1425], padlocal grpc request failed: 1, error: Error: 2 UNKNOWN: [tid:d7dd1425] wechat bad request error`
 
 ## Manual
@@ -35,4 +36,18 @@ yarn
 
 ```shell
 ts-node ./src/demo.ts
+```
+
+## notes
+
+### calling other scripts in ts
+
+```shell
+import {exec, execSync} from 'child_process'
+
+# sync way
+execSync('python xxx.py')
+
+# async way
+exec('python xxx.py')
 ```
